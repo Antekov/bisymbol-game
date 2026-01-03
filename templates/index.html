@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="mb-4">Игра по словам</h2>
+<p><strong>Последнее слово:</strong> <span class="badge bg-primary fs-5">{{ last_word }}</span></p>
+<p>Придумайте слово, начинающееся с <strong>{{ last_word[-2:] if last_word|length >= 2 else last_word[-1:] }}</strong>.</p>
+
+<form method="POST" action="{{ url_for('submit') }}">
+    <div class="mb-3">
+        <label for="word" class="form-label">Ваше слово:</label>
+        <input type="text" class="form-control" id="word" name="word" required autofocus>
+    </div>
+    <button type="submit" class="btn btn-success">Отправить</button>
+</form>
+
+<p class="mt-3"><small>Использованные слова: {{ session.get('used_words', [])|join(', ') }}</small></p>
+{% endblock %}
